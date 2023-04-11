@@ -1,37 +1,51 @@
 --Checking the first table
 Select *
 from `Forage2.Transactions`
+
+
 --Checking that the online order column only has true or false i.e
 Online or offline order
 SELECT distinct online_order
 FROM `forage-381908.Forage2.Transactions`
+
 --Customers can only order goods Online or offline hence the
 field cannot be null. Stakeholders have asked that all null fields
 be changed to false
 UPDATE`forage-381908.Forage2.Transactions`
 set online_order = 'False'
 where online_order is null
+
+
 --checking the genders specified in the table "new customer sheet"
 select distinct (gender)
 from `Forage2.NewCustomerList`
+
+
 -- from the data above, there are three genders Female, Male and
 U. U is unclear and so the stakeholders have confirmed it should
 be changed to "undecided"
 UPDATE`forage-381908.Forage2.NewCustomerList`
 set gender = 'Undecided'
 where gender = 'U'
+
+
 --Checking gender assignments on the "customer demographic sheet"
 select Distinct(gender)
 from `Forage2.CustomerDemographic`
+
+
 --Data exploration above indicates that there are irregularities
 with the gender column in this table
 UPDATE`forage-381908.Forage2.CustomerDemographic`
 set gender = 'Female' where gender LIKE 'F%'
+
 UPDATE`forage-381908.Forage2.CustomerDemographic`
 set gender = 'Undecided'
 where gender = 'U'
+
 UPDATE`forage-381908.Forage2.CustomerDemographic`
 set gender = 'Male' where gender = 'M'
+
 --One customer has a wrong date of birth entered. We assume this
 is wrong because the date places the customer at over 100 years of
 age which means he is unlikely to be purchasing bicycles.
@@ -39,17 +53,23 @@ Stakeholders have asked to change date
 select *
 from `Forage2.CustomerDemographic`
 where DOB <= '1900-1-1'
+
 update `Forage2.CustomerDemographic`
 set dob = '1943-12-21'
 where customer_id = 34
+
+
 --Checking the "state" column on the "customer address sheet"
 select Distinct(state)
 from `Forage2.CustomerAddress`
+
+
 --Data exploration above indicates that there are irregularities
 with some items being abbreviated and others wriiten in full. Due
 to the format of state in other tables, to aid with joining tables
 we have to abbreviate all states
 UPDATE`forage-381908.Forage2.CustomerDemographic`
 set state = 'VIC' where State LIKE 'V%'
+
 UPDATE`forage-381908.Forage2.CustomerDemographic`
 set state = 'NSW' where state = 'New South Wales'
