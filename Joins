@@ -1,0 +1,16 @@
+--shows the top 20 donors who give weekly or monthly.
+SELECT Donation_Data.first_name, Donation_Data.last_name, Donation_Data.email, Donation_Data.donation, Donor_Data2.donation_frequency, Donation_Data.job_field
+from Donation_Data 
+INNER JOIN Donor_Data2
+on Donation_Data.id = Donor_Data2.id
+where donation_frequency = 'Weekly' or donation_frequency = 'Monthly'
+order by Donation_Data.donation DESC
+limit 20
+
+--show everyone from the Sales industry in descending order of donation.
+SELECT Donation_Data.first_name, Donation_Data.last_name, Donation_Data.email,Donation_Data.job_field, Donation_Data.donation, Donor_Data2.donation_frequency, Donor_Data2.favourite_colour 
+from Donation_Data
+LEFT JOIN Donor_Data2
+on Donation_Data.id = Donor_Data2.id
+where job_field = 'Sales'
+order by donation desc
